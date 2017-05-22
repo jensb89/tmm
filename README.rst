@@ -1,3 +1,7 @@
+Matlab Port of "tmm - a python code for transfer method for optics of thin and thick multilayer films 
+
+Original python repository:
+
 Author homepage: http://sjbyrnes.com
 
 Package home at PyPI: http://pypi.python.org/pypi/tmm
