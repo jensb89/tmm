@@ -36,7 +36,7 @@ classdef TMM < handle
             % See https://arxiv.org/abs/1603.02720 appendix D. If theta is the forward
             % angle, then (pi-theta) is the backward angle and vice-versa.
 
-            assert(real(n) * imag(n) >= 0,"For materials with gain, it's ambiguous which beam is incoming vs outgoing. See https://arxiv.org/abs/1603.02720 Appendix C.\n n: " + string(n) + "   angle: " + string(theta))
+            assert(real(n) * imag(n) >= 0,['For materials with gain, it is ambiguous which beam is incoming vs outgoing. See https://arxiv.org/abs/1603.02720 Appendix C.\n n: ', num2str(n), '   angle: ',  num2str(theta)]);
             ncostheta = n * cos(theta);
             if abs(imag(ncostheta)) > 100 * this.EPSILON
                 % Either evanescent decay or lossy medium. Either way, the one that
@@ -51,7 +51,7 @@ classdef TMM < handle
             end
 
             % double-check the answer ... can't be too careful!
-            error_string = "It's not clear which beam is incoming vs outgoing. Weird index maybe?\n n: " + string(n) + "   angle: " + string(theta);
+            error_string = ['It is not clear which beam is incoming vs outgoing. Weird index maybe?\n n: ', num2str(n), '   angle: ' , num2str(theta)];
             if answer == true
                 assert(imag(ncostheta) > -100 * this.EPSILON, error_string);
                 assert(real(ncostheta) > -100 * this.EPSILON, error_string);
@@ -106,7 +106,7 @@ classdef TMM < handle
             elseif polarization == 'p'
                 ret = ((n_f * cos(th_i) - n_i * cos(th_f)) / (n_f * cos(th_i) + n_i * cos(th_f)));
             else
-                error("Polarization must be 's' or 'p'");
+                error('Polarization must be "s" or "p"');
             end
         end
         
@@ -123,7 +123,7 @@ classdef TMM < handle
             elseif polarization == 'p'
                 ret= 2 * n_i * cos(th_i) / (n_f * cos(th_i) + n_i * cos(th_f));
             else
-                error("Polarization must be 's' or 'p'");
+                error('Polarization must be "s" or "p"');
             end
         end
 
@@ -147,7 +147,7 @@ classdef TMM < handle
             elseif pol == 'p'
                 ret= abs(t^2) * ((real(n_f*conj(cos(th_f)))) / real(n_i*conj(cos(th_i))));
             else
-                error("Polarization must be 's' or 'p'");
+                error('Polarization must be "s" or "p"');
             end
         end
 
@@ -164,7 +164,7 @@ classdef TMM < handle
             elseif pol == 'p'
                 ret = (real(n_i*conj(cos(th_i))*(1+r)*(1-conj(r))) / real(n_i*conj(cos(th_i))));
             else
-                error("Polarization must be 's' or 'p'");
+                error('Polarization must be "s" or "p"');
             end
         end
         
@@ -221,7 +221,7 @@ classdef TMM < handle
                                  
             %if (length(n_list.ndim ~= 1) || (d_list.ndim ~= 1) || (n_list.size ~= d_list.size)
             if length(n_list) ~= length(d_list)
-                error("Problem with n_list or d_list!")
+                error('Problem with n_list or d_list!')
             end
             
             assert(d_list(1) == d_list(end) && d_list(1) == inf, 'd_list must start and end with inf!')
@@ -254,11 +254,11 @@ classdef TMM < handle
                     %if 'opacity_warning' not in globals():
                     %    global opacity_warning
                     %    opacity_warning = True
-                        display(["Warning: Layers that are almost perfectly opaque ",...
-                              "are modified to be slightly transmissive, ",...
-                              "allowing 1 photon in 10^30 to pass through. It's ",...
-                              "for numerical stability. This warning will not ",...
-                              "be shown again."]);
+                        display(['Warning: Layers that are almost perfectly opaque ',...
+                              'are modified to be slightly transmissive, ',...
+                              'allowing 1 photon in 10^30 to pass through. It is ',...
+                              'for numerical stability. This warning will not ',...
+                              'be shown again.']);
                 end
             end
 
